@@ -1,6 +1,6 @@
-module m2_5_ThreadedInsert() {
-    cylinder(h=4.2, d=3.6, $fn=25);
-}
+include <m2_5/m2_5.scad>
+include <rect/rect.scad>
+include <voronDinRail/voronDinRail.scad>
 
 module zero4uMount_Column() {
     let(usbZ=7, frameZ=4, colZ=usbZ+frameZ) {
@@ -24,58 +24,18 @@ module zero4uMount_HolePattern(center=false) {
     }
 }
 
-module rect_rounded(size, radius, center=false) {
-    let(rectW=size[0], rectH=size[1]) {
-        translate([center ? size[0]/-2 : 0, center ? size[1]/-2 : 0]) 
-            hull() {
-                translate([radius, radius])
-                    circle(r=radius, $fn=25);
-
-                translate([rectW-radius, radius])
-                    circle(r=radius, $fn=25);
-
-                translate([radius, rectH-radius])
-                    circle(r=radius, $fn=25);
-
-                translate([rectW-radius, rectH-radius])
-                    circle(r=radius, $fn=25);
-            }
-    }
-}
-
-module m2_5_mountingHole() {
-    union() {
-        translate([0,0,2])
-            cylinder(h=2, d=4, $fn=25);
-
-        cylinder(h=4, d=2.6, $fn=25); 
-    }
-}
-
-module zero4uMount_voronDinRailHolePattern(center=false) {
-    let(distance=31.4) {
-        translate([center ? distance/-2 : 0, 0])
-        union() {
-             m2_5_mountingHole();
-            
-            translate([distance, 0, 0])
-                m2_5_mountingHole();
-        }
-    }
-}
-
 module zero4uMount_base() {
     let(colR=3, colD=colR*2, baseX=58, baseY=23+colR*2, dinX=31.2) {
        linear_extrude(4) difference() {
             square([baseX,baseY], center=true);
             
-            rect_rounded([dinX-colD,baseY-colD*2],3, center=true);
+            rect_rounded([dinX-colD-1,baseY-colD*2],3, center=true);
             
             translate([baseX/2,0,0])
-                rect_rounded([(baseX-dinX)-colD,baseY-colD*2],3, center=true);
+                rect_rounded([(baseX-dinX)-colD-1,baseY-colD*2],3, center=true);
 
             translate([baseX/-2,0,0])
-                rect_rounded([(baseX-dinX)-colD,baseY-colD*2],3, center=true);
+                rect_rounded([(baseX-dinX)-colD-1,baseY-colD*2],3, center=true);
         }
     }
 }
@@ -88,9 +48,7 @@ module zero4uMount() {
         difference() {
             zero4uMount_base();
             
-            zero4uMount_voronDinRailHolePattern(center=true);
+            voronDinRail_HolePattern(center=true);
         }
     }
 }
-
-zero4uMount();
