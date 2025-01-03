@@ -18,13 +18,18 @@ For the low profile clip version:
 * 2 M3x5 FHCS
 * 4 M2.5 threaded inserts
 
+For the "even lower" profile clip version:
+
+* 2 M2.5x6 self-tapping screws
+* 4 M2.5 threaded inserts
+
 ## Printing
 
 Use standard Voron print settings for walls and infill for ABS.
 
 ## Assembly
 
-1. Print the DIN rail clip.
+1. Print the mount and any necessary clips. For the "event lower" version, print two.
 2. Install the four heat-set threaded inserts into the column holes.
 3. Attach the rail clip to the mount using self-tapping screws (Voron clip version) or M3x5 FHCS (low profile version). 
 4. Use the nylon screws and spacers provided with the Zero4U to install the hub and Pi Zero onto the mount.
